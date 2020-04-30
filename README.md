@@ -8,6 +8,7 @@ Implements regular sampling and weighted random sampling with and without replac
 
 ## Usage
 
+```ruby
     require 'hash_sample'
     loaded_die = {'1' => 0.1, '2' => 0.1, '3' => 0.1, '4' => 0.1, '5' => 0.1, '6' => 0.5}
     p loaded_die.wchoice      # "6"
@@ -16,8 +17,9 @@ Implements regular sampling and weighted random sampling with and without replac
     p loaded_die.wsample      # 6
     p loaded_die.wsample(6)   # ["6", "3", "2", "4", "1", "5"]
     p loaded_die.wsample(10)  # ["2", "6", "1", "3", "4", "5"]
-    p loaded_die.sample      # { '1' => 0.1 }
-    p loaded_die.sample(6)   # {'1' => 0.1, '2' => 0.1, '3' => 0.1, '4' => 0.1, '5' => 0.1, '6' => 0.5}
+    p loaded_die.sample       # { '1' => 0.1 }
+    p loaded_die.sample(6)    # {'1' => 0.1, '2' => 0.1, '3' => 0.1, '4' => 0.1, '5' => 0.1, '6' => 0.5}
+```
 
 ## Hash instance methods
 ### hash.sample(n = 1) ⇒ Hash
@@ -70,7 +72,7 @@ alias for wsample
 
 ## Contributing
 
-1. Fork it ( https://github.com/serg123e/weighted_choice/fork )
+1. Fork it ( https://github.com/serg123e/hash_sample/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
 3. Commit your changes (`git commit -am 'Add some feature'`)
 4. Push to the branch (`git push origin my-new-feature`)
@@ -79,6 +81,6 @@ alias for wsample
 ## References
 
 1. [Efraimidis and Spirakis implementation of random sampling with replacement](https://gist.github.com/O-I/3e0654509dd8057b539a)
-2. [Source paper](https://utopia.duth.gr/~pefraimi/research/data/2007EncOfAlg.pdf)
+2. [Weighted Random Sampling (2005; Efraimidis, Spirakis)](https://utopia.duth.gr/~pefraimi/research/data/2007EncOfAlg.pdf)
 3. [Abandoned Ruby feature request](https://bugs.ruby-lang.org/issues/4247#change-25166)
 4. [Inspiring example of using max_by for Enumerables with the same algorithm](https://ruby-doc.org/core-2.7.1/Enumerable.html#method-i-max_by)
