@@ -1,0 +1,6 @@
+﻿--markup markdown
+--title "Hash.weighted_sample Documentation"
+--no-private --protected lib/**/*.rb 
+-
+LICENSE
+- README.md

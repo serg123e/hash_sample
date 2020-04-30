@@ -1,0 +1,10 @@
+pkg/*
+coverage/*
+html/*
+doc/*
+*.gem
+.bundle
+*.swp
+Gemfile.lock
+vendor/*
+.yardoc/*
