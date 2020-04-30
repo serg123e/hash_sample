@@ -3,19 +3,24 @@ Gem::Specification.new do |s|
     s.platform    = Gem::Platform::RUBY
     s.authors     = ["Sergey Evstegneiev"]
     s.email       = ["serg123e@gmail.com"]
-    s.homepage    = 'https://github.com/serg123e/hash-sample'
+    s.homepage    = 'https://github.com/serg123e/hash_sample'
     s.summary     = %q{Implements multiple sampling methods for Hash class}
     s.description = %q{Regular and weighted random sampling with and without replacement are implemented}
-    s.metadata    = { 'source_code_uri' => 'https://github.com/serg123e/hash-sample' }
+
     s.add_development_dependency "rspec", "~> 3.5"
+    s.add_development_dependency "simplecov", "~> 0.12"
+    s.add_development_dependency "rspec-simplecov", "~> 0.2"
+
     s.add_development_dependency "rake", "~> 13"
+    s.add_development_dependency "yard", "~> 0.9"
+
 
     s.require_paths = ["lib"]
 
     s.required_ruby_version = '>= 2.4'
 
     s.date              = '2020-05-01'
-    s.version           = '0.8.4'
+    s.version           = '0.8.5'
     s.license           = 'MIT'
 
     s.rdoc_options = ['--charset=UTF-8']
