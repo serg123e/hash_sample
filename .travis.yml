@@ -4,3 +4,8 @@ rvm:
  - 2.6.5
  - 2.7.1
  - jruby
+deploy:
+  provider: rubygems
+  api_key: $RUBYGEMS_API_KEY
+  on:
+    tags: true
