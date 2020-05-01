@@ -5,7 +5,7 @@ Gem::Specification.new do |s|
     s.email       = ["serg123e@gmail.com"]
     s.homepage    = 'https://github.com/serg123e/hash_sample'
     s.summary     = %q{Implements multiple sampling methods for Hash class}
-    s.description = %q{Regular and weighted random sampling with and without replacement are implemented}
+    s.description = %q{Implements methods for Hash class for getting weighted random samples with and without replacement, as well as regular random samples}
 
     s.add_development_dependency "rspec", "~> 3.5"
     s.add_development_dependency "simplecov", "~> 0.12"
@@ -20,13 +20,14 @@ Gem::Specification.new do |s|
     s.required_ruby_version = '>= 2.4'
 
     s.date              = '2020-05-01'
-    s.version           = '0.8.5'
+    s.version           = '0.8.6'
     s.license           = 'MIT'
 
     s.rdoc_options = ['--charset=UTF-8']
     s.extra_rdoc_files = %w(README.md LICENSE)
     # = MANIFEST =
     s.files = %w(
+      Gemfile
       LICENSE
       README.md
       Rakefile

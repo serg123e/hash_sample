@@ -34,7 +34,6 @@ def bump_version
   old_file.sub!(old_version_line, "    VERSION = '#{new_version}'")
 
   File.write("lib/#{name}/version.rb", old_file)
-
   new_version
 end
 
@@ -145,6 +144,12 @@ task :validate do
     puts "A `VERSION` file at root level violates Gem best practices."
     exit!
   end
+end
+
+desc 'Tag commit and push it'
+task :tag do
+  sh "git tag v#{version}"
+  sh "git push --tags"
 end
 
 begin

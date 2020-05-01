@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/serg123e/hash_sample.svg?branch=master)](https://travis-ci.com/serg123e/hash_sample)
 
-Implements regular sampling and weighted random sampling with and without replacement for Hashes
+Implements methods for Hash class for getting weighted random samples with and without replacement, as well as regular random samples
 
 ## Installation
 
