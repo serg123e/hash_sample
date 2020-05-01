@@ -38,7 +38,7 @@ def bump_version
 end
 
 def replace_header(head, header_name)
-  head.sub!(/(\.#{header_name}\s*= ').*'/) { "#{$1}#{send(header_name)}'"}
+  head.sub!(/(\.#{header_name}\s*= ').*'/) { "#{Regexp.last_match(1)}#{send(header_name)}'" }
 end
 
 def gemspec_file
@@ -46,11 +46,11 @@ def gemspec_file
 end
 
 def gem_files
- ["#{name}-#{version}.gem"]
+  ["#{name}-#{version}.gem"]
 end
 
 def gemspecs
-   ["#{name}.gemspec"]
+  ["#{name}.gemspec"]
 end
 
 def date
@@ -88,7 +88,7 @@ task :bump do
 end
 
 desc 'Build gem'
-task :build => :gemspec do
+task build: :gemspec do
   sh "mkdir pkg"
   gemspecs.each do |gemspec|
     sh "gem build #{gemspec}"
@@ -98,14 +98,13 @@ task :build => :gemspec do
   end
 end
 
-
 desc "Build and install"
-task :install => :build do
+task install: :build do
   sh "gem install --local --no-document pkg/#{name}-#{version}.gem"
 end
 
 desc 'Update gemspec'
-task :gemspec => :validate do
+task gemspec: :validate do
   # read spec file and split out manifest section
   spec = File.read(gemspec_file)
   head, _manifest, tail = spec.split(/\s*# = MANIFEST =\n/)
@@ -114,21 +113,21 @@ task :gemspec => :validate do
   replace_header(head, :name)
   replace_header(head, :version)
   replace_header(head, :date)
-  #comment this out if your rubyforge_project has a different name
-#  replace_header(head, :rubyforge_project)
+  # comment this out if your rubyforge_project has a different name
+  #  replace_header(head, :rubyforge_project)
 
   # determine file list from git ls-files
-  files = `git ls-files`.
-    split("\n").
-    sort.
-    reject { |file| file =~ /^\./ }.
-    reject { |file| file =~ /^(rdoc|pkg|test|Home\.md|\.gitattributes|Guardfile)/ }.
-    map { |file| "      #{file}" }.
-    join("\n")
+  files = `git ls-files`
+          .split("\n")
+          .sort
+          .reject { |file| file =~ /^\./ }
+          .reject { |file| file =~ /^(rdoc|pkg|test|Home\.md|\.gitattributes|Guardfile)/ }
+          .map { |file| "    #{file}" }
+          .join("\n")
 
   # piece file back together and write
-  manifest = "    s.files = %w(\n#{files}\n    )"
-  spec = [head, manifest, tail].join("\n    # = MANIFEST =\n")
+  manifest = "  s.files = %w[\n#{files}\n  ]"
+  spec = [head, manifest, tail].join("\n  # = MANIFEST =\n")
   File.open(gemspec_file, 'w') { |io| io.write(spec) }
   puts "Updated #{gemspec_file}"
 end
@@ -156,6 +155,6 @@ begin
   require 'rspec/core/rake_task'
   desc "run rspec tests"
   RSpec::Core::RakeTask.new(:spec)
-  task :default => :spec
+  task default: :spec
 rescue LoadError
 end

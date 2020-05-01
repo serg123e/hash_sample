@@ -40,4 +40,11 @@ Style/Documentation:
   Enabled: true
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
-
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+Lint/RaiseException:
+  Enabled: true
+Lint/StructNewOverride:
+  Enabled: true
+Style/ExponentialNotation:
+  Enabled: true
