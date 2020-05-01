@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
     s.required_ruby_version = '>= 2.4'
 
     s.date              = '2020-05-01'
-    s.version           = '0.8.6'
+    s.version           = '0.8.7'
     s.license           = 'MIT'
 
     s.rdoc_options = ['--charset=UTF-8']
