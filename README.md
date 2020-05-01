@@ -1,6 +1,7 @@
 ﻿# hash_sample
 
 [![Build Status](https://travis-ci.com/serg123e/hash_sample.svg)](https://travis-ci.com/serg123e/hash_sample)
+[![Test Coverage](https://img.shields.io/codecov/c/github/serg123e/hash_sample.svg)](https://codecov.io/github/serg123e/hash_sample?branch=master)
 
 Implements methods for Hash class for getting weighted random samples with and without replacement, as well as regular random samples
 
