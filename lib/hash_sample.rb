@@ -1,4 +1,6 @@
-﻿# monkey-patched Hash module
+# frozen_string_literal: true
+
+# monkey-patched Hash module
 class Hash
   ##
   # Choose a random key=>value pair or *n* random pairs from the hash.
@@ -41,29 +43,13 @@ class Hash
   #
   #     p {'_' => 9, 'a' => 1}.wchoice(10)  # ["_", "a", "_", "_", "_", "_", "_", "_", "_", "_"]
   #
-  def wchoice(*args)
+  def wchoice(number = nil)
     _check_weighted_params
-    number = args.first || 1
-    res = []
-    unless empty?
-      number.times do
-        tmp = _wrs
-        res << tmp.first
-      end
+    if number.nil?
+      _wrs.first
+    else
+      empty? ? [] : Array.new(number) { _wrs.first }
     end
-    return args.empty? ? res.first : res
-  end
-
-  # internal method to validate parameters
-  def _check_weighted_params
-    sum_weights = 0
-    each_value do |weight|
-      raise ArgumentError, "All weights should be numeric unlike #{weight}" unless weight.is_a? Numeric
-
-      sum_weights += weight if weight.positive?
-    end
-
-    raise ArgumentError, "At least one weight should be > 0" unless sum_weights.positive? || empty?
   end
 
   ##
@@ -90,7 +76,7 @@ class Hash
   def wsample(*number)
     _check_weighted_params
     res = _wrs(number.first || 1).map(&:first)
-    return number.first ? res : res.first
+    number.empty? ? res.first : res
   end
 
   ###
@@ -99,8 +85,23 @@ class Hash
     wsample(*number)
   end
 
+  private
+
+  # internal method to validate parameters
+  def _check_weighted_params
+    sum_weights = 0
+    each_value do |weight|
+      raise ArgumentError, "All weights should be numeric unlike #{weight}" unless weight.is_a? Numeric
+
+      sum_weights += weight if weight.positive?
+    end
+    raise ArgumentError, "At least one weight should be > 0" unless sum_weights.positive? || empty?
+  end
+
   # internal method that implements weighted random sampling
   def _wrs(*number)
+    return [] if empty?
+
     max_by(*number) { |_, weight| weight.positive? ? rand**(1.0 / weight) : 0 }
   end
 end

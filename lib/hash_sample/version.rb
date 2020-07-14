@@ -1,4 +1,6 @@
-﻿module HashSample
+# frozen_string_literal: true
+
+module HashSample
   # gem version
-  VERSION = '0.8.7'.freeze
+  VERSION = '0.8.7'
 end

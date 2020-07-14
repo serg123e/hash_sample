@@ -1,4 +1,6 @@
-﻿require 'yard'
+# frozen_string_literal: true
+
+require 'yard'
 require 'rake'
 require 'date'
 

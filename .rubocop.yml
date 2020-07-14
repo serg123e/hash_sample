@@ -3,8 +3,8 @@ Metrics/LineLength:
   Max: 120
 # Too short methods lead to extraction of single-use methods, which can make
 # the code easier to read (by naming things), but can also clutter the class
-Metrics/MethodLength:
-  Max: 20
+#Metrics/MethodLength:
+#  Max: 20
 
 # Single quotes being faster is hardly measurable and only affects parse time.
 # Enforcing double quotes reduces the times where you need to change them
@@ -12,10 +12,6 @@ Metrics/MethodLength:
 # are needed.
 Style/StringLiterals:
 #  EnforcedStyle: double_quotes
-  Enabled: false
-
-# explicit return makes code more readable
-Style/RedundantReturn:
   Enabled: false
 
 # String#% is by far the least verbose and only object oriented variant.
@@ -38,8 +34,6 @@ Style/HashTransformValues:
 
 Style/Documentation:
   Enabled: true
-Style/FrozenStringLiteralComment:
-  EnforcedStyle: never
 Layout/SpaceAroundMethodCallOperator:
   Enabled: true
 Lint/RaiseException:

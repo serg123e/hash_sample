@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Gem::Specification.new do |s|
   s.name = 'hash_sample'
   s.platform    = Gem::Platform::RUBY
