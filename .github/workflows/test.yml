@@ -11,6 +11,8 @@ permissions:
 
 jobs:
   test:
+    env:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
     runs-on: ubuntu-latest
     strategy:
