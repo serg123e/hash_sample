@@ -14,14 +14,17 @@ Implements methods for Hash class for getting weighted random samples with and w
 ```ruby
     require 'hash_sample'
     loaded_die = {'1' => 0.1, '2' => 0.1, '3' => 0.1, '4' => 0.1, '5' => 0.1, '6' => 0.5}
-    p loaded_die.wchoice      # "6"
-    p loaded_die.wchoice(1)   # ["6"]
-    p loaded_die.wchoice(10)  # ["4", "6", "3", "3", "2", "2", "1", "6", "4", "6"]
-    p loaded_die.wsample      # 6
-    p loaded_die.wsample(6)   # ["6", "3", "2", "4", "1", "5"]
-    p loaded_die.wsample(10)  # ["2", "6", "1", "3", "4", "5"]
+    # weighted random choice of keys, with replacement (elements can repeat)  
+    p loaded_die.weighted_choice      # "6"
+    p loaded_die.weighted_choices(1)   # ["6"]
+    p loaded_die.wchoices(10)  # ["4", "6", "3", "3", "2", "2", "1", "6", "4", "6"]
+    # weighted random choice of keys, without replacement (elements can NOT repeat)
+    p loaded_die.weighted_sample      # 6
+    p loaded_die.weighted_samples(6)   # ["6", "3", "2", "4", "1", "5"]
+    p loaded_die.wsamples(10)  # ["2", "6", "1", "3", "4", "5"]
+    # regular random choice of key-value pairs (pairs can NOT repeat)
     p loaded_die.sample       # { '1' => 0.1 }
-    p loaded_die.sample(6)    # {'1' => 0.1, '2' => 0.1, '3' => 0.1, '4' => 0.1, '5' => 0.1, '6' => 0.5}
+    p loaded_die.samples(6)    # {'1' => 0.1, '2' => 0.1, '3' => 0.1, '4' => 0.1, '5' => 0.1, '6' => 0.5}
 ```
 
 ## Hash instance methods
@@ -36,8 +39,12 @@ If the hash contains less than n unique keys, the copy of whole hash will be ret
 
 Returns new Hash containing sample key=>value pairs
 
+### hash.weighted_choice ⇒ Object
 ### hash.wchoice ⇒ Object
-### hash.wchoice(n) ⇒ Array of n samples.
+
+### hash.weighted_choices(n) ⇒ Array of n samples
+
+### hash.wchoices(n) ⇒ ⇒ Array of n samples
 Weighted random sampling *with* replacement.
 
 Choose a random key or n random keys from the hash, according to weights defined in hash values.
@@ -50,22 +57,28 @@ All weights should be Numeric.
 
 Zero or negative weighs will be ignored.
 
-    {'_' => 9, 'a' => 1}.wchoice(10)  # ["_", "a", "_", "_", "_", "_", "_", "_", "_", "_"]
+    {'_' => 9, 'a' => 1}.wchoices(10)  # ["_", "a", "_", "_", "_", "_", "_", "_", "_", "_"]
 
+### hash.weighted_sample ⇒ Object
 ### hash.wsample ⇒ Object
-### hash.wsample(n) ⇒ Array of n samples.
+
+### hash.wsamples(n) ⇒ Array of n samples.
+
+### hash.weighted_samples(n) ⇒ Array of n samples.
 Weighted random sampling *without* replacement.
 
 Choose 1 or n *distinct* random keys from the hash, according to weights defined in hash values.
-Drawn items are not replaced.
+Drawn items are not put back into the set, so they **can not be repeated in result**.
 
-If the hash is empty the first form returns nil and the second form returns an empty array.
+If the hash is empty, singular form returns nil and plural returns an empty array.
 
 All weights should be Numeric.
 
 Zero or negative weighs will be ignored.
 
-    {'_' => 9, 'a' => 1}.wchoice(10)  # ["_", "a"]
+    Hash.new.weighted_sample                   # nil
+    Hash.new.weighted_samples                  # []
+    {'_' => 9, 'a' => 1}.weighted_samples(10)  # ["_", "a"]
 
 ### hash.wchoices(n = 1) ⇒ Object
 alias for wchoice
