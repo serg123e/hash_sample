@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-shared_examples 'weighted choicer' do |weighted_method|
+shared_examples 'weighted sampler' do |weighted_method|
   context weighted_method.to_s do
     let(:weighted_methods) { "#{weighted_method}s" }
 
@@ -75,9 +75,7 @@ shared_examples 'weighted choicer' do |weighted_method|
 
       describe 'should work with complex Objects as keys' do
         subject(:result) do
-          { test_class.new('asd') => 1,
-            test_class.new('bsd') => 1,
-            test_class.new('dsf') => 1 }.weighted_choice
+          { test_class.new('asd') => 1, test_class.new('bsd') => 1, test_class.new('dsf') => 1 }.weighted_choice
         end
 
         let(:test_class) { Struct.new(:foo) }
@@ -124,7 +122,7 @@ RSpec.describe Hash do
   end
 
   describe '#weighted_choices' do
-    it_behaves_like 'weighted choicer', :weighted_choice
+    it_behaves_like 'weighted sampler', :weighted_choice
 
     context 'when specified parameter n>1' do
       it 'returns array of n sample keys' do
@@ -141,7 +139,7 @@ RSpec.describe Hash do
   end
 
   describe '#weighted_samples' do
-    it_behaves_like 'weighted choicer', :weighted_sample
+    it_behaves_like 'weighted sampler', :weighted_sample
 
     describe 'when specified parameter n>1' do
       it 'returns array of unique keys' do
