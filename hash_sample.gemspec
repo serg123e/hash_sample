@@ -26,8 +26,8 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = '>= 2.4'
 
-  s.date = '2024-11-18'
-  s.version = '1.0.0'
+  s.date = '2024-11-19'
+  s.version = '1.0.1'
   s.license           = 'MIT'
 
   s.rdoc_options = ['--charset=UTF-8']
