@@ -11,7 +11,7 @@ require 'date'
 #############################################################################
 
 def name
-  "hash_sample"
+  'hash_sample'
 end
 
 def version
@@ -67,20 +67,20 @@ end
 YARD::Rake::YardocTask.new do |t|
 end
 
-desc "Generate RCov test coverage and open in your browser"
+desc 'Generate RCov test coverage and open in your browser'
 task :coverage do
   require 'rcov'
-  sh "rm -fr coverage"
-  sh "rcov test/test_*.rb"
-  sh "open coverage/index.html"
+  sh 'rm -fr coverage'
+  sh 'rcov test/test_*.rb'
+  sh 'open coverage/index.html'
 end
 
-desc "Open an irb session preloaded with this library"
+desc 'Open an irb session preloaded with this library'
 task :console do
   sh "irb -r rubygems -r ./lib/#{name}.rb"
 end
 
-desc "Update version number and gemspec"
+desc 'Update version number and gemspec'
 task :bump do
   puts "Updated version to #{bump_version}"
   # Execute does not invoke dependencies.
@@ -91,7 +91,7 @@ end
 
 desc 'Build gem'
 task build: :gemspec do
-  sh "mkdir pkg"
+  sh 'mkdir pkg'
   gemspecs.each do |gemspec|
     sh "gem build #{gemspec}"
   end
@@ -100,7 +100,7 @@ task build: :gemspec do
   end
 end
 
-desc "Build and install"
+desc 'Build and install'
 task install: :build do
   sh "gem install --local --no-document pkg/#{name}-#{version}.gem"
 end
@@ -122,15 +122,15 @@ task gemspec: :validate do
   files = `git ls-files`
           .split("\n")
           .sort
-          .reject { |file| file =~ /^\./ }
-          .reject { |file| file =~ /^(rdoc|pkg|test|Home\.md|\.gitattributes|Guardfile)/ }
+            .grep_v(/^\./)
+            .grep_v(/^(rdoc|pkg|test|Home\.md|\.gitattributes|Guardfile)/)
           .map { |file| "    #{file}" }
           .join("\n")
 
   # piece file back together and write
   manifest = "  s.files = %w[\n#{files}\n  ]"
   spec = [head, manifest, tail].join("\n  # = MANIFEST =\n")
-  File.open(gemspec_file, 'w') { |io| io.write(spec) }
+  File.write(gemspec_file, spec)
   puts "Updated #{gemspec_file}"
 end
 
@@ -142,7 +142,7 @@ task :validate do
     exit!
   end
   unless Dir['VERSION*'].empty?
-    puts "A `VERSION` file at root level violates Gem best practices."
+    puts 'A `VERSION` file at root level violates Gem best practices.'
     exit!
   end
 end
@@ -150,13 +150,13 @@ end
 desc 'Tag commit and push it'
 task :tag do
   sh "git tag v#{version}"
-  sh "git push --tags"
+  sh 'git push --tags'
 end
 
 begin
   require 'rspec/core/rake_task'
-  desc "run rspec tests"
+  desc 'run rspec tests'
   RSpec::Core::RakeTask.new(:spec)
   task default: :spec
-rescue LoadError
+rescue LoadError # rubocop:disable Lint/SuppressedException
 end
