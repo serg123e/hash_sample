@@ -2,15 +2,13 @@ name: Ruby Gem
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    tags: # Trigger the workflow only on tag creation
+      - '*'
 jobs:
   build:
     name: Build + Publish
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/') # Ensure this runs only on tag creation
+    # if: startsWith(github.ref, 'refs/tags/') # Ensure this runs only on tag creation
     permissions:
       contents: read
       packages: write
