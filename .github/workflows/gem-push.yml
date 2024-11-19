@@ -8,17 +8,15 @@ jobs:
   build:
     name: Build + Publish
     runs-on: ubuntu-latest
-    # if: startsWith(github.ref, 'refs/tags/') # Ensure this runs only on tag creation
     permissions:
       contents: read
       packages: write
-
     steps:
     - uses: actions/checkout@v4
     - name: Set up Ruby 2.7
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.7.x
+        ruby-version: 2.7.8
     - name: Publish to RubyGems
       run: |
         mkdir -p $HOME/.gem
